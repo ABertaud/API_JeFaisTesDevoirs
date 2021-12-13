@@ -8,10 +8,10 @@ from REST_API.models import Subject, Answer
 # Register your models here.
 
 class ValueSubject(admin.ModelAdmin):
-    list_display = ('id', 'Answered', 'UserRef', 'Price', 'hasPaid')
+    list_display = ('id', 'File', 'Answered', 'UserRef', 'Price', 'hasPaid')
 
 class ValueAnswer(admin.ModelAdmin):
-    list_display = ('id', 'SubjectRef', 'UserRef', 'isValid', 'isPending', 'isPaid')
+    list_display = ('id', 'File', 'SubjectRef', 'UserRef', 'isValid', 'isPending', 'isPaid')
 
 admin.site.register(Subject, ValueSubject)
 admin.site.register(Answer, ValueAnswer)
