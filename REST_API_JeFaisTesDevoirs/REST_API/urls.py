@@ -24,6 +24,7 @@ schema_view = get_schema_view(
 router = routers.SimpleRouter()
 router.register(r'Subject', views.SubjectViewSet)
 router.register(r'Answer', views.AnswerViewSet)
+router.register(r'File', views.FileViewSet)
 
 urlpatterns = [
     url(r'', include(router.urls)),

@@ -1,5 +1,10 @@
 from rest_framework import serializers
-from REST_API.models import Subject, Answer
+from REST_API.models import File, Subject, Answer
+
+class FileSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = File
+        fields = "__all__"
 
 class SubjectSerializer(serializers.ModelSerializer):
     class Meta:
