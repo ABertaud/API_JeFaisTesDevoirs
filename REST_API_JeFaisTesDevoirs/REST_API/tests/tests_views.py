@@ -28,6 +28,21 @@ class ViewSetTest(TestCase):
         self.assertEqual(response.status_code, 404)
         response = view(request, pk=self.subject.pk)
         self.assertEqual(response.status_code, 200)
+
+    def testRemoveFileFromSubjectID(self):
+        request_url = f'Subject/remove_file_from_subjectid/'
+        view = SubjectViewSet.as_view(actions={'get': 'remove_file_from_subjectid'})
+        request = self.factory.get(request_url, {'id_subject': 15})
+        response = view(request)
+        self.assertEqual(response.status_code, 401)
+        force_authenticate(request, user=self.user)
+        response = view(request)
+        self.assertEqual(response.status_code, 400)
+        request = self.factory.get(request_url, {'id_subject': 1})
+        force_authenticate(request, user=self.user)
+        response = view(request)
+        #no file created results in fail
+        self.assertEqual(response.status_code, 400)
     
     def testAnswerViewSet(self):
         view = AnswerViewSet.as_view({'get': 'retrieve'})
@@ -50,3 +65,18 @@ class ViewSetTest(TestCase):
         self.assertEqual(response.status_code, 404)
         response = view(request, pk=self.file.pk)
         self.assertEqual(response.status_code, 200)
+    
+    def testRemoveFileFromAnswerID(self):
+        request_url = f'Answer/remove_file_from_answerid/'
+        view = AnswerViewSet.as_view(actions={'get': 'remove_file_from_answerid'})
+        request = self.factory.get(request_url, {'id_answer': 15})
+        response = view(request)
+        self.assertEqual(response.status_code, 401)
+        force_authenticate(request, user=self.user)
+        response = view(request)
+        self.assertEqual(response.status_code, 400)
+        request = self.factory.get(request_url, {'id_answer': 1})
+        force_authenticate(request, user=self.user)
+        response = view(request)
+        #no file created results in fail
+        self.assertEqual(response.status_code, 400)
