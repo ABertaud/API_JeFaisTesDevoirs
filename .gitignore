@@ -5,6 +5,12 @@ static
 db.sqlite3
 __pycache__
 *.pyc
+.env
+ids.txt
+toUpload.txt
+env/
+media/
+migrations
 
 # Unit test / coverage reports 
 htmlcov/ 
@@ -17,3 +23,4 @@ nosetests.xml
 coverage.xml 
 *.cover 
 .hypothesis/ 
+

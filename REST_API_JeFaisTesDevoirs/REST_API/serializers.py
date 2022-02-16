@@ -1,5 +1,10 @@
 from rest_framework import serializers
-from REST_API.models import File, Subject, Answer
+from REST_API.models import CustomUser, File, Subject, Answer
+
+class CustomUserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = CustomUser
+        fields = ('username', 'email', 'pk')
 
 class FileSerializer(serializers.ModelSerializer):
     class Meta:

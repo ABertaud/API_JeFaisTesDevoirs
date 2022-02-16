@@ -1,18 +1,24 @@
 from django.db.models.fields.files import FileField
 from django.test import TestCase
-from django.contrib.auth.models import User
-from REST_API.models import File, Subject, Answer
+from REST_API.models import CustomUser, File, Subject, Answer
 from django.core.files.uploadedfile import SimpleUploadedFile
 
 class JeFaisTesDevoirsModelsTest(TestCase):
     def setUp(self):
-        self.user = User.objects.create_superuser(
+        self.user = CustomUser.objects.create_superuser(
             username='foobar',
             email='foo@bar.com',
             password='barbaz')
         self.file = File.objects.create(file="tmp")
         self.subject = Subject.objects.create(FileRef=self.file, Answered=False, UserRef=self.user, Price=15, hasPaid=False)
         self.answer = Answer.objects.create(FileRef=self.file, SubjectRef=self.subject, UserRef=self.user, isValid=True, isPending=False, isPaid=False)
+
+    def test_create_user(self):
+        cUser = CustomUser.objects.create(email='normal@user.com', password='foo')
+        self.assertEqual(cUser.email, 'normal@user.com')
+        self.assertTrue(cUser.is_active)
+        self.assertFalse(cUser.is_staff)
+        self.assertFalse(cUser.is_superuser)
 
     def testSubjectCreation(self):
         self.assertTrue(isinstance(self.subject, Subject))

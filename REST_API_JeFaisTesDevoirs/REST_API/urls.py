@@ -25,6 +25,7 @@ router = routers.SimpleRouter()
 router.register(r'Subject', views.SubjectViewSet)
 router.register(r'Answer', views.AnswerViewSet)
 router.register(r'File', views.FileViewSet)
+router.register(r'User', views.CustomUserViewSet)
 
 urlpatterns = [
     url(r'', include(router.urls)),

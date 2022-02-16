@@ -5,8 +5,8 @@ import os
 
 from django.shortcuts import render
 from rest_framework.fields import NullBooleanField
-from REST_API.models import File, Subject, Answer
-from REST_API.serializers import FileSerializer, SubjectSerializer, AnswerSerializer
+from REST_API.models import CustomUser, File, Subject, Answer
+from REST_API.serializers import CustomUserSerializer, FileSerializer, SubjectSerializer, AnswerSerializer
 from rest_framework import viewsets
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.parsers import FileUploadParser
@@ -16,6 +16,14 @@ from rest_framework import status
 from django.http import JsonResponse
 from rest_framework.decorators import action
 
+
+class CustomUserViewSet(viewsets.ModelViewSet):
+    """
+    A simple viewset to retrieve all the Users
+    """
+    # permission_classes = (IsAuthenticated,)
+    queryset = CustomUser.objects.all()
+    serializer_class = CustomUserSerializer
 
 class FileViewSet(viewsets.ModelViewSet):
     """

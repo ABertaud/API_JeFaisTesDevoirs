@@ -1,14 +1,13 @@
 from rest_framework.test import APIRequestFactory, force_authenticate
-from django.contrib.auth.models import User
 from django.test import TestCase
-from REST_API.models import Answer, File, Subject
-from REST_API.views import FileViewSet, SubjectViewSet, AnswerViewSet
+from REST_API.models import CustomUser, Answer, File, Subject
+from REST_API.views import CustomUserViewSet, FileViewSet, SubjectViewSet, AnswerViewSet
 from django.core.files.base import ContentFile
 
 
 class ViewSetTest(TestCase):
     def setUp(self):
-        self.user = User.objects.create_superuser(
+        self.user = CustomUser.objects.create_superuser(
             username='foobar',
             email='foo@bar.com',
             password='barbaz')
@@ -80,3 +79,14 @@ class ViewSetTest(TestCase):
         response = view(request)
         #no file created results in fail
         self.assertEqual(response.status_code, 400)
+
+    def test_CustomUserViewSet(self):
+        view = CustomUserViewSet.as_view({'get': 'retrieve'})
+        request = self.factory.get('CustomUser')
+        response = view(request, pk=self.user.pk)
+        self.assertEqual(response.status_code, 401)
+        force_authenticate(request, user=self.user)
+        response = view(request, pk=10)
+        self.assertEqual(response.status_code, 404)
+        response = view(request, pk=self.user.pk)
+        self.assertEqual(response.status_code, 200)

@@ -3,12 +3,18 @@ from __future__ import unicode_literals
 
 import uuid
 from django.db import models
-from django.contrib.auth.models import User
+from django.contrib.auth.models import AbstractUser
+from .managers import CustomUserManager
 from django.db.models.deletion import CASCADE
 
 # Create your models here.
 
 import uuid
+
+class CustomUser(AbstractUser):
+    objects = CustomUserManager()
+    def __str__(self):
+        return str(self.id)
 
 class File(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
@@ -19,7 +25,7 @@ class File(models.Model):
 class Subject(models.Model):
     FileRef = models.ForeignKey(File, default=0, on_delete=models.CASCADE)
     Answered = models.BooleanField(default=False)
-    UserRef = models.ForeignKey(User, on_delete=models.CASCADE)
+    UserRef = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
     Price = models.IntegerField(default=0)
     hasPaid = models.BooleanField(default=False)
     def __str__(self):
@@ -28,7 +34,7 @@ class Subject(models.Model):
 class Answer(models.Model):
     FileRef = models.ForeignKey(File, default=0, on_delete=models.CASCADE)
     SubjectRef = models.ForeignKey(Subject, on_delete=CASCADE)
-    UserRef = models.ForeignKey(User, on_delete=models.CASCADE)
+    UserRef = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
     isValid = models.BooleanField(default=False)
     isPending = models.BooleanField(default=True)
     isPaid = models.BooleanField(default=False)
