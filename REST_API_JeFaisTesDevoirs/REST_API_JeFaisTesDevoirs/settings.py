@@ -50,7 +50,6 @@ INSTALLED_APPS = [
     'rest_framework',
     'drf_yasg',
     'rest_framework.authtoken',
-    'accounts'
 ]
 
 REST_FRAMEWORK = {
@@ -60,8 +59,9 @@ REST_FRAMEWORK = {
     'TEST_REQUEST_DEFAULT_FORMAT': 'json',
 }
 
+
 SWAGGER_SETTINGS = {
-   'USE_SESSION_AUTH': False
+   'USE_SESSION_AUTH': True
 }
 
 MIDDLEWARE = [
@@ -84,7 +84,6 @@ ROOT_URLCONF = 'REST_API_JeFaisTesDevoirs.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'templates'),],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -156,12 +155,12 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 LOGIN_REDIRECT_URL = 'home'
 LOGOUT_REDIRECT_URL = 'home'
 
-DEFAULT_FROM_EMAIL= env("DEFAULT_FROM_EMAIL")
-SENDGRID_API_KEY = env("SENDGRID_API_KEY")
-EMAIL_HOST = env("EMAIL_HOST")
-EMAIL_HOST_USER = env("EMAIL_HOST_USER")
-EMAIL_HOST_PASSWORD = env("EMAIL_HOST_PASSWORD")
-EMAIL_PORT = env("EMAIL_PORT") 
-EMAIL_USE_TLS = env("EMAIL_USE_TLS")
+# DEFAULT_FROM_EMAIL= env("DEFAULT_FROM_EMAIL")
+# SENDGRID_API_KEY = env("SENDGRID_API_KEY")
+# EMAIL_HOST = env("EMAIL_HOST")
+# EMAIL_HOST_USER = env("EMAIL_HOST_USER")
+# EMAIL_HOST_PASSWORD = env("EMAIL_HOST_PASSWORD")
+# EMAIL_PORT = env("EMAIL_PORT") 
+# EMAIL_USE_TLS = env("EMAIL_USE_TLS")
 
 AUTH_USER_MODEL = 'REST_API.CustomUser'

@@ -15,7 +15,7 @@ from rest_framework.views import APIView
 from rest_framework import status
 from django.http import JsonResponse
 from rest_framework.decorators import action
-
+from rest_framework.permissions import AllowAny
 
 class CustomUserViewSet(viewsets.ModelViewSet):
     """
@@ -24,6 +24,12 @@ class CustomUserViewSet(viewsets.ModelViewSet):
     # permission_classes = (IsAuthenticated,)
     queryset = CustomUser.objects.all()
     serializer_class = CustomUserSerializer
+
+    def get_permissions(self):
+        if self.request.method == 'POST':
+            self.permission_classes = (AllowAny,)
+
+        return super(CustomUserViewSet, self).get_permissions()
 
 class FileViewSet(viewsets.ModelViewSet):
     """
