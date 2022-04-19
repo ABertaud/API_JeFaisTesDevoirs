@@ -8,7 +8,6 @@ class CustomUserSerializer(serializers.ModelSerializer):
         fields = ('username', 'email', 'password', 'pk')
 
     def create(self, validated_data):
-        print(validated_data)
         user = get_user_model().objects.create_user(**validated_data)
         return user
 

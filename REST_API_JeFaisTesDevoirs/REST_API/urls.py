@@ -30,4 +30,5 @@ router.register(r'User', views.CustomUserViewSet)
 urlpatterns = [
     url(r'', include(router.urls)),
     url(r'docs/$', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
+    url(r'^api_token_auth/', views.CustomAuthToken.as_view())
 ]+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
